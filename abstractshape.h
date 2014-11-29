@@ -2,12 +2,13 @@
 #define ABSTRACTSHAPE_H
 /** @file abstractshape.h
  *
- * @brief Абстрактный класс представления геометрической фигуры и класс точки
+ * @brief Абстрактный класс представления геометрической фигуры и класс ошибки неположительного значения координаты
  * @author Pavel Zinin <pzinin@gmail.com>
  * @date 27 Nov 2014
- * @see abstractshape.cpp
+ *
  */
-
+#include <iostream>
+#include "vector.h"
 namespace pashazz
 {
     /**
@@ -24,42 +25,27 @@ namespace pashazz
      */
     class Point2D;
 
-    class Point2D
+    /**
+    * @class Vector2D
+    *
+    * двумерный вектор
+    */
+
+    class Vector2D;
+
+    //Ошибка: неположительное число
+
+    struct NonPositiveValueException
     {
-    public:
-        Point2D(double x = 0, double y = 0)
-            :x(x), y(y) {}
-        double x;
-        double y;
-        Point2D operator+(const Point2D &rvalue)
+        NonPositiveValueException() = delete;
+
+        NonPositiveValueException(double val, const char * msg)
         {
-            return Point2D(x+rvalue.x, y+rvalue.y);
-        }
-        Point2D operator-(const Point2D &rvalue)
-        {
-            return Point2D(x-rvalue.x, y-rvalue.y);
-        }
-        Point2D& operator+=(const Point2D &rvalue)
-        {
-            x += rvalue.x;
-            y += rvalue.y;
-            return *this;
-        }
-        Point2D& operator-=(const Point2D &rvalue)
-        {
-            x -= rvalue.x;
-            y -= rvalue.y;
-            return *this;
-        }
-        bool operator==(const Point2D &rvalue)
-        {
-            return x == rvalue.x && y == rvalue.y;
-        }
-        bool operator!=(const Point2D &rvalue)
-        {
-            return !operator==(rvalue);
+            std::cerr << "runtime error: mon-positive value: " << val << " (" << msg << ")\n";
         }
     };
+
+
 
     class AbstractShape
     {
@@ -73,11 +59,26 @@ namespace pashazz
         virtual void move(const Point2D &delta, double dAngle = 0) = 0;
         virtual void rotate(double dAngle) = 0;
         virtual bool isInside(const Point2D &point) = 0;
+
+    //props
+        virtual void setCentre(Point2D centre) {
+        m_centre = centre;
+        transformCoords();
+    }
+
+
+        virtual void setCentre(double x, double y)
+        {
+            setCentre(Point2D(x, y));
+        }
+        virtual Point2D centre() {return m_centre;}
    //painting:
         virtual void paint() = 0;
 
     protected:
+        virtual void transformCoords() = 0;
         Point2D m_centre;
+        //constructor
         AbstractShape(Point2D centre)
             :m_centre(centre) {}
     };

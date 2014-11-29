@@ -19,31 +19,41 @@ namespace pashazz
         void setTopRightRadius(double);
         void setBottomLeftRadius(double);
         void setBottomRightRadius(double);
-        void setEdge(double);
     //get
-        double topLeftRadius() const {return tlRadius;}
-        double topRightRadius() const {return trRadius;}
-        double bottomLeftRadius() const {return blRadius;}
-        double bottomRightRadius() const {return brRadius;}
-        double edge() const {return _edge;}
-    private:
+        double topLeftRadius() const {return m_tlRadius;}
+        double topRightRadius() const {return m_trRadius;}
+        double bottomLeftRadius() const {return m_blRadius;}
+        double bottomRightRadius() const {return m_brRadius;}
+        double edge() const {return m_halfedge*2;}
+
+        //др. функции
+        Point2D topLeftCorner();
+        Point2D topRightCorner();
+        Point2D bottomLeftCorner();
+        Point2D bottomRightCorner();
+    protected:
+        void transformCoords()
+        {
+            qDebug() << "transformCoords() called";
+        }
 
         //радиусы закруглений углов
-        double tlRadius = 0; ///<радиус закругления левого верхнего угла
-        double trRadius = 0; ///<радиус закругления правого верхнего угла
-        double blRadius = 0; ///<радиус закругления левого нижнего угла
-        double brRadius = 0; ///<радиус закругления левого нижнего угла
+        //C++11: non-static member initializer
+        double m_tlRadius = 0; ///<радиус закругления левого верхнего угла
+        double m_trRadius = 0; ///<радиус закругления правого верхнего угла
+        double m_blRadius = 0; ///<радиус закругления левого нижнего угла
+        double m_brRadius = 0; ///<радиус закругления левого нижнего угла
         //точки далее устанавливаются зависимо от Radius-переменных
-        Point2D tlCurveCentre; ///<центр закругления левого нижнего угла
-        Point2D trCurveCentre; ///<центр закругления правого нижнего угла
-        Point2D blCurveCentre; ///<центр закругления левого нижнего угла
-        Point2D brCurveCentre; ///<центр закругления правого нижнего угла
+        Point2D tlCurveCentre(); ///<центр закругления левого нижнего угла
+        Point2D trCurveCentre(); ///<центр закругления правого нижнего угла
+        Point2D blCurveCentre(); ///<центр закругления левого нижнего угла
+        Point2D brCurveCentre(); ///<центр закругления правого нижнего угла
 
-        double _edge;
-        Point2D topLeftCorner;
-        Point2D topRightCorner;
-        Point2D bottomRightCorner;
-        Point2D bottomLeftCorner;
+        Point2D tlCorner();
+        Point2D trCorner();
+        Point2D blCorner();
+        Point2D brCorner();
+        double m_halfedge;
     };
 }
 

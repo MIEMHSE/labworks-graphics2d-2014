@@ -1,0 +1,120 @@
+/** @file vector.h
+* Класс точки на плоскости. Она же вектор из начала координат
+*
+* Наша система координат (Cartesian) - у направлен вверх, x - вправо.
+*
+*
+*
+*/
+
+#include <math.h>
+
+class Point2D
+{
+public:
+    Point2D(double x = 0, double y = 0)
+            :x(x), y(y) {}
+    double x;
+    double y;
+
+    Point2D& operator+=(const Point2D &rvalue)
+    {
+        x += rvalue.x;
+        y += rvalue.y;
+        return *this;
+    }
+    Point2D& operator-=(const Point2D &rvalue)
+    {
+        x -= rvalue.x;
+        y -= rvalue.y;
+        return *this;
+    }
+    bool operator==(const Point2D &rvalue)
+    {
+        return x == rvalue.x && y == rvalue.y;
+    }
+
+    bool operator!=(const Point2D &rvalue)
+    {
+        return !operator==(rvalue);
+    }
+
+    Point2D operator-()
+    {
+        return Point2D(-x, -y);
+    }
+
+    double length() const
+    {
+        return sqrt(x*x + y*y);
+    }
+
+    /**
+    * @brief вращает точку вокруг начала координат
+    *
+    * Вычисление определителя матрицы поворота точки вокруг угла angle
+    *
+    * @param p - точка, которую необходимо вращать
+    * @param angle - угол в радианах
+    * @return новые координаты точки
+    *
+    *
+    * */
+    Point2D rotate (double angle)
+    {
+        return Point2D(
+                cos(angle)*x - sin(angle)*y,
+                sin(angle)*x + cos(angle)*y
+        );
+    }
+
+    /**
+    * @brief возвращает координаты точки в новой системе с центром в данной
+    *
+    */
+    Point2D translate (Point2D p)
+    {
+        return Point2D(p.x - x, p.y - y);
+    }
+
+     friend double operator*(const Point2D &lvalue, const Point2D &rvalue)
+    {
+        return lvalue.x * rvalue.x+
+                lvalue.y * rvalue.y;
+    }
+
+    friend Point2D operator+ (const Point2D &lvalue, const Point2D &rvalue)
+    {
+        Point2D r = lvalue;
+        return r += rvalue;
+    }
+
+    friend Point2D operator- (const Point2D &lvalue, const Point2D &rvalue)
+    {
+        Point2D r = lvalue;
+        return r -= lvalue;
+    }
+
+    friend Point2D operator< (const Point2D &lvalue, const Point2D &rvalue)
+    {
+        return  lvalue.x * lvalue.x + lvalue.y * lvalue.y <
+                rvalue.y * rvalue.y + rvalue.y * rvalue y; //x^2+y^2 < x_2^2-y_2^2
+    }
+
+    friend Point2D operator<= (const Point2D &lvalue, const Point2D &rvalue)
+    {
+        return lvalue < rvalue || lvalue == rvalue;
+    }
+
+    friend Point2D operator> (const Point2D &lvalue, const Point2D &rvalue)
+    {
+        return !(lvalue <= lvalue);
+    }
+
+    friend Point2D operator>= (const Point2D &lvalue, const Point2D &rvalue)
+    {
+        return !(lvalue < lvalue);
+    }
+
+};
+

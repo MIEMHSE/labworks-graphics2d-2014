@@ -1,42 +1,105 @@
 #include "square.h"
 using namespace pashazz;
-void inline Square::setEdge(double e)
+
+Square::Square(const Point2D &m_centre, double edge, double tlRadius, double trRadius, double blRadius, double brRadius)
+:
 {
-    //устанавливает длину квадрата; устанавливает точки углов соответственно; точки закруглений соответственно
-    _edge = e;
 
-    //углы
+}
 
+/* privat s */
+Point2D Square::trCurveCentre()
+{
+    return trCorner() + Point2D(-m_tlRadius, -m_tlRadius);
+}
+
+Point2D Square::blCurveCentre()
+{
+    return blCorner() + Point2D(m_tlRadius, m_tlRadius);
+}
+
+Point2D Square::brCurveCentre()
+{
+    return brCorner() + Point2D(-m_tlRadius, m_tlRadius);
+}
+
+Point2D inline Square::tlCurveCentre()
+{
+    return tlCorner() + Point2D(m_tlRadius, -m_tlRadius);
 }
 
 void inline Square::setTopLeftRadius(double r)
 {
-   #warning TODO radius check range
-    if (tlRadius != r)
-        tlRadius = r;
-    tlCurveCentre = topLeftCorner + Point2D(r, -r);
+    if (r < m_halfedge && r > 0)
+        m_tlRadius = r;
+    else
+        throw NonPositiveValueException(r, "Pashazz::Square::m_tlRadius");
 }
 
 
 void inline Square::setTopRightRadius(double r)
 {
-    if (trRadius != r)
-        trRadius = r;
-    trCurveCentre = topRightCorner + Point2D(-r, -r);
+    if (r < m_halfedge && r >= 0)
+        m_trRadius = r;
+    else
+        throw NonPositiveValueException(r, "Pashazz::Square::m_trRadius");
 }
+
 
 void inline Square::setBottomLeftRadius(double r)
 {
-    if (blRadius != r)
-        blRadius = r;
-    blCurveCentre = bottomLeftCorner + Point2D(r, r);
+    if (r < m_halfedge && r >= 0)
+        m_blRadius = r;
+    else
+        throw NonPositiveValueException(r, "Pashazz::Square::m_blRadius");
 }
 
 void inline Square::setBottomRightRadius(double r)
 {
-    if (brRadius != r)
-    brRadius = r;
-    brCurveCentre = bottomRightCorner + Point2D(-r, r);
+    if (r < m_halfedge && r >= 0)
+        m_brRadius = r;
+    else
+        throw NonPositiveValueException(r, "Pashazz::Square::m_brRadius");
 }
 
+
+Point2D inline Square::trCorner()
+{ //top right corner in center coords
+    return Point2D(m_halfedge, m_halfedge);
+}
+
+Point2D inline Square::tlCorner()
+{
+    return Point2D(-m_halfedge, m_halfedge);
+}
+
+Point2D inline Square::blCorner()
+{
+    return Point2D(-m_halfedge, -m_halfedge);
+}
+
+Point2D inline Square::brCorner()
+{
+    return Point2D(m_halfedge, -m_halfedge);
+}
+
+Point2D inline Square::topLeftCorner()
+{
+    return -m_centre.translate(tlCorner());
+}
+
+Point2D Square::topRightCorner()
+{
+    return -m_centre.translate(trCorner());
+}
+
+Point2D Square::bottomLeftCorner()
+{
+    return -m_centre.translate(blCorner());
+}
+
+Point2D Square::bottomRightCorner()
+{
+    return -m_centre.translate(brCorner());
+}
 
