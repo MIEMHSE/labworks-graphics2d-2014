@@ -12,14 +12,20 @@ set(CMAKE_AUTOUIC ON)
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 
 #non-gui
-set(SOURCE_FILES main.cpp square.cpp)
-set(HEADER_FILES square.h abstractshape.h)
+set(SOURCE_FILES square.cpp)
+set(HEADER_FILES square.h abstractshape.h vector.h)
 set(GUI_FILES mainwindow.cpp mainwindow.h)
 
 
 # Widgets finds its own dependencies.
 find_package(Qt5Widgets REQUIRED)
 
-add_executable(graphics2d ${GUI_FILES} ${SOURCE_FILES} ${HEADER_FILES})
+add_executable(graphics2d ${GUI_FILES} ${SOURCE_FILES} ${HEADER_FILES}  ${UI_FILES} main.cpp)
 
 target_link_libraries(graphics2d Qt5::Widgets)
+
+add_subdirectory(gtest)
+include_directories(${gtest_SOURCE_DIR}/include ${gtest_SOURCE_DIR})
+add_executable(runUnitTests ${SOURCE_FILES} ${HEADER_FILES} test_vector.cpp)
+# Standard linking to gtest stuff.
+target_link_libraries(runUnitTests gtest gtest_main Qt5::Widgets)
