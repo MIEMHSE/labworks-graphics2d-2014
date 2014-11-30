@@ -9,6 +9,7 @@
  */
 #include <iostream>
 #include "vector.h"
+
 namespace pashazz
 {
     /**
@@ -18,21 +19,6 @@ namespace pashazz
      * Это абстрактный класс, представляющий геометрическую фигуру. Вы должны наследоваться от этого класса
      */
     class AbstractShape;
-    /**
-     * @class Point2D
-     *
-     * Точка на плоскости
-     */
-    class Point2D;
-
-    /**
-    * @class Vector2D
-    *
-    * двумерный вектор
-    */
-
-    class Vector2D;
-
     //Ошибка: неположительное число
 
     struct NonPositiveValueException
@@ -51,13 +37,12 @@ namespace pashazz
     {
     public:
 
-        virtual void move(double dX, double dY, double dAngle = 0)
+        virtual void move(double dX, double dY)
         {
-            move(Point2D(dX, dY), dAngle);
+            move(Point2D(dX, dY));
         }
 
-        virtual void move(const Point2D &delta, double dAngle = 0) = 0;
-        virtual void rotate(double dAngle) = 0;
+        virtual void move(const Point2D &delta) = 0;
         virtual bool isInside(const Point2D &point) = 0;
 
     //props

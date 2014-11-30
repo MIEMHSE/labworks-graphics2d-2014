@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>823</width>
-    <height>597</height>
+    <width>821</width>
+    <height>595</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -19,9 +19,64 @@
      <widget class="QGraphicsView" name="gr"/>
     </item>
     <item>
-     <widget class="QPushButton" name="pushButton">
+     <layout class="QGridLayout" name="gridLayout">
+      <item row="4" column="3">
+       <widget class="QDoubleSpinBox" name="boxY"/>
+      </item>
+      <item row="0" column="2">
+       <widget class="QLabel" name="label">
+        <property name="text">
+         <string>Угол (градусы)</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="3">
+       <widget class="QDoubleSpinBox" name="doubleSpinBox">
+        <property name="maximum">
+         <double>360.000000000000000</double>
+        </property>
+       </widget>
+      </item>
+      <item row="4" column="2">
+       <widget class="QLabel" name="label_3">
+        <property name="text">
+         <string>y</string>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="3">
+       <widget class="QDoubleSpinBox" name="boxX"/>
+      </item>
+      <item row="2" column="2">
+       <widget class="QLabel" name="label_2">
+        <property name="text">
+         <string>x</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="1">
+       <widget class="QDoubleSpinBox" name="boxAngle"/>
+      </item>
+      <item row="0" column="0">
+       <widget class="QLabel" name="label_4">
+        <property name="text">
+         <string>Радиус правого верхнего закругления</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </item>
+    <item>
+     <widget class="QCheckBox" name="cmdAuto">
       <property name="text">
-       <string>PushButton</string>
+       <string>Auto repaint</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QPushButton" name="btn">
+      <property name="text">
+       <string>Repaint</string>
       </property>
      </widget>
     </item>
@@ -32,7 +87,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>823</width>
+     <width>821</width>
      <height>21</height>
     </rect>
    </property>
