@@ -11,10 +11,12 @@ namespace pashazz
     public:
         Square() = delete; //запрет конструктора по умолчанию
         Square(const Point2D &m_centre, double edge, double tlRadius = 0, double trRadius = 0, double blRadius = 0, double brRadius = 0);
-        void paint();
-        virtual bool isInside(const Point2D &point);
-        void setPainter (QPainter *p) {_p = p;}
-        virtual void move(const Point2D &delta);
+        void paint(QPainter *p) const;
+        virtual bool isInside(const Point2D &point) const;
+        virtual void move(const Point2D &delta)
+        {
+            setCentre(m_centre + delta);
+        }
 
     //Свойства: set
         void setEdge(double);
@@ -57,7 +59,6 @@ namespace pashazz
         Point2D blCorner() const;
         Point2D brCorner() const;
         double m_halfedge;
-        QPainter *_p = 0;
 
     };
 }

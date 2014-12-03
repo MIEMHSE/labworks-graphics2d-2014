@@ -119,19 +119,18 @@ Point2D Square::bottomRightCorner() const
 }
 
 
-void Square::paint()
+void Square::paint(QPainter *p) const
 {
    /* QTransform trans; //трансформация системы координат QPainter в нашу
     trans.scale(1, -1); //у указывает вверх
     trans.translate(m_centre.x, m_centre.y); //центр в m_centre
 
 */
-    QPainterPath roundRectPath;
 
-}
+    }
 
 
-bool Square::isInside(const Point2D &point)
+bool Square::isInside(const Point2D &point) const
 { //Check whether the point is inside this square
     Point2D priv_point = m_centre.translate(point);
     if(fabs(priv_point.x) > m_halfedge || fabs(priv_point.y) > m_halfedge)
