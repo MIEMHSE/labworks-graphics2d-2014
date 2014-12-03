@@ -2,32 +2,33 @@
 
 using namespace pashazz;
 ///GraphicsSystemObject methods begin
-bool GraphicsSystemObject::isInside(const Point2D &p)
+bool GraphicsSystemObject::isInside(const Point2D &p) const
 {
-     return m_pShape.isInside(p) == m_sign;
+     return m_pShape->isInside(p) == m_sign;
 }
 ///GraphicsSystemObject methods end
 
-void GraphicsSystem::move(const Point2D &delta, double dAngle)
+void inline GraphicsSystem::move(const Point2D &delta, double dAngle)
 {
      m_centre += delta;
      m_angle += dAngle;
 }
 
-void GraphicsSystem::rotate(double dAngle)
+void inline GraphicsSystem::rotate(double dAngle)
 {
      m_angle += dAngle;
 }
 
-void GraphicsSystem::addObject(AbstractShape *shape, bool sign = true, int zOrder = 0)
+void GraphicsSystem::addObject(AbstractShape *shape, bool sign, int zOrder)
 {
      GraphicsSystemObject *obj = new GraphicsSystemObject(shape, sign);
-     std::unique_ptr<GraphicsSystemObject> ptr = obj;
-     //if size <= zOrder...
-     m_system[zOrder].push_back(obj);
+     std::unique_ptr<GraphicsSystemObject> ptr(obj);
+     if (m_system.size() <= zOrder)
+          m_system.resize(zOrder + 1);
+     m_system.at(zOrder).push_back(obj);
 }
 
-void GraphicsSystem::isInside(const Point2D &point)
+bool GraphicsSystem::isInside(const Point2D &point) const
 {
      Point2D priv_point = m_centre.translate(point);
      priv_point.rotate(m_angle);
@@ -39,3 +40,4 @@ void GraphicsSystem::isInside(const Point2D &point)
 
      return true;
 }
+

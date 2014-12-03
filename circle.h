@@ -23,6 +23,7 @@ namespace pashazz
         //properties
         void setRadius(double radius);
         double radius() const {return m_radius;}
+        void transformCoords(){}
 
     private:
         double m_radius;

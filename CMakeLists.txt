@@ -3,6 +3,10 @@ project(graphics2d)
 #c++11
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
 
+#default Homebrew path
+IF(${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
+set(CMAKE_PREFIX_PATH /usr/local/opt/qt5)
+ENDIF()
 
 # Tell CMake to run moc when necessary:
 set(CMAKE_AUTOMOC ON)
@@ -12,8 +16,8 @@ set(CMAKE_AUTOUIC ON)
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 
 #non-gui
-set(SOURCE_FILES square.cpp circle.cpp)
-set(HEADER_FILES square.h circle.h abstractshape.h vector.h)
+set(SOURCE_FILES square.cpp circle.cpp graphicssystem.cpp)
+set(HEADER_FILES square.h circle.h abstractshape.h vector.h graphicssystem.h)
 set(GUI_FILES mainwindow.cpp mainwindow.h)
 
 
