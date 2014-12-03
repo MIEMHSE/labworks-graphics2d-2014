@@ -7,6 +7,8 @@
 *
 */
 
+#ifndef VECTOR_H
+#define VECTOR_H
 #include <math.h>
 #include <ostream>
 #include <QPointF>
@@ -179,10 +181,11 @@ namespace pashazz
         }
 
         /* конвертация в QPointF */
-        operator QPointF()
+        operator QPointF() const
         {
             return QPointF(x, y);
         }
     };
 
 }
+#endif //VECTOR_H

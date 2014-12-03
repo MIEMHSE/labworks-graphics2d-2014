@@ -5,7 +5,8 @@
 
 Класс, представляющий круг
 */
-
+#ifndef CIRCLE_H
+#define CIRCLE_H
 #include "abstractshape.h"
 #include "vector.h"
 namespace pashazz
@@ -31,3 +32,5 @@ namespace pashazz
 
 
 }
+
+#endif //CIRCLE_H

@@ -44,13 +44,13 @@ namespace pashazz
         }
 
         virtual void move(const Point2D &delta) = 0;
-        virtual bool isInside(const Point2D &point) const = 0;
+        virtual bool isInside(const Point2D &point) = 0;
 
-    //props
-        virtual void setCentre(Point2D centre) {
+        virtual void setCentre(Point2D centre)
+        {
         m_centre = centre;
         transformCoords();
-    }
+        }
 
 
         virtual void setCentre(double x, double y)
