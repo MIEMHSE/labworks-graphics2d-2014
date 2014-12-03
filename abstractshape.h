@@ -9,6 +9,7 @@
  */
 #include <iostream>
 #include "vector.h"
+#include <QPainter>
 
 namespace pashazz
 {
@@ -43,7 +44,7 @@ namespace pashazz
         }
 
         virtual void move(const Point2D &delta) = 0;
-        virtual bool isInside(const Point2D &point) = 0;
+        virtual bool isInside(const Point2D &point) const = 0;
 
     //props
         virtual void setCentre(Point2D centre) {
@@ -56,9 +57,9 @@ namespace pashazz
         {
             setCentre(Point2D(x, y));
         }
-        virtual Point2D centre() {return m_centre;}
+        virtual Point2D centre() const {return m_centre;}
    //painting:
-        virtual void paint() = 0;
+        virtual void paint(QPainter *p) const = 0;
 
     protected:
         virtual void transformCoords() = 0;

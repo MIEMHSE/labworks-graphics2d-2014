@@ -9,6 +9,7 @@
 
 #include <math.h>
 #include <ostream>
+#include <QPointF>
 
 
 using std::ostream;
@@ -177,6 +178,11 @@ namespace pashazz
             return stream;
         }
 
+        /* конвертация в QPointF */
+        operator QPointF()
+        {
+            return QPointF(x, y);
+        }
     };
 
 }

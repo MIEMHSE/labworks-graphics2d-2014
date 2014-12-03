@@ -12,8 +12,8 @@ set(CMAKE_AUTOUIC ON)
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 
 #non-gui
-set(SOURCE_FILES square.cpp)
-set(HEADER_FILES square.h abstractshape.h vector.h)
+set(SOURCE_FILES square.cpp circle.cpp)
+set(HEADER_FILES square.h circle.h abstractshape.h vector.h)
 set(GUI_FILES mainwindow.cpp mainwindow.h)
 
 
