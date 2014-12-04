@@ -69,7 +69,7 @@ namespace pashazz
             return !operator==(rvalue);
         }
 
-        Point2D operator-()
+        Point2D operator-() const
         {
             return Point2D(-x, -y);
         }
