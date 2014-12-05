@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>821</width>
-    <height>595</height>
+    <width>815</width>
+    <height>609</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -16,7 +16,17 @@
   <widget class="QWidget" name="centralWidget">
    <layout class="QVBoxLayout" name="verticalLayout">
     <item>
-     <widget class="QGraphicsView" name="gr"/>
+     <widget class="QGraphicsView" name="gr">
+      <property name="backgroundBrush">
+       <brush brushstyle="SolidPattern">
+        <color alpha="255">
+         <red>170</red>
+         <green>255</green>
+         <blue>255</blue>
+        </color>
+       </brush>
+      </property>
+     </widget>
     </item>
     <item>
      <layout class="QGridLayout" name="gridLayout">
@@ -26,14 +36,23 @@
       <item row="0" column="2">
        <widget class="QLabel" name="label">
         <property name="text">
-         <string>Угол (градусы)</string>
+         <string>Угол (радианы)</string>
         </property>
        </widget>
       </item>
       <item row="0" column="3">
-       <widget class="QDoubleSpinBox" name="doubleSpinBox">
+       <widget class="QDoubleSpinBox" name="boxAngle">
+        <property name="suffix">
+         <string> рад</string>
+        </property>
         <property name="maximum">
-         <double>360.000000000000000</double>
+         <double>6.280000000000000</double>
+        </property>
+        <property name="singleStep">
+         <double>0.010000000000000</double>
+        </property>
+        <property name="value">
+         <double>1.000000000000000</double>
         </property>
        </widget>
       </item>
@@ -47,6 +66,29 @@
       <item row="2" column="3">
        <widget class="QDoubleSpinBox" name="boxX"/>
       </item>
+      <item row="0" column="0">
+       <widget class="QLabel" name="label_4">
+        <property name="text">
+         <string>Сторона квадрата</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="1">
+       <widget class="QDoubleSpinBox" name="boxSquare">
+        <property name="decimals">
+         <number>2</number>
+        </property>
+        <property name="minimum">
+         <double>1.000000000000000</double>
+        </property>
+        <property name="maximum">
+         <double>1000.000000000000000</double>
+        </property>
+        <property name="value">
+         <double>200.000000000000000</double>
+        </property>
+       </widget>
+      </item>
       <item row="2" column="2">
        <widget class="QLabel" name="label_2">
         <property name="text">
@@ -54,29 +96,60 @@
         </property>
        </widget>
       </item>
-      <item row="0" column="1">
-       <widget class="QDoubleSpinBox" name="boxAngle"/>
-      </item>
-      <item row="0" column="0">
-       <widget class="QLabel" name="label_4">
+      <item row="2" column="0">
+       <widget class="QLabel" name="label_5">
         <property name="text">
-         <string>Радиус правого верхнего закругления</string>
+         <string>Радиус 1</string>
+        </property>
+       </widget>
+      </item>
+      <item row="4" column="0">
+       <widget class="QLabel" name="label_6">
+        <property name="text">
+         <string>Радиус 2</string>
+        </property>
+       </widget>
+      </item>
+      <item row="5" column="0">
+       <widget class="QLabel" name="label_7">
+        <property name="text">
+         <string>Радиус 3</string>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="1">
+       <widget class="QDoubleSpinBox" name="boxRad1">
+        <property name="maximum">
+         <double>1000.990000000000009</double>
+        </property>
+        <property name="value">
+         <double>100.000000000000000</double>
+        </property>
+       </widget>
+      </item>
+      <item row="4" column="1">
+       <widget class="QDoubleSpinBox" name="boxRad2">
+        <property name="maximum">
+         <double>1000.000000000000000</double>
+        </property>
+        <property name="value">
+         <double>50.990000000000002</double>
+        </property>
+       </widget>
+      </item>
+      <item row="5" column="1">
+       <widget class="QDoubleSpinBox" name="boxRad3">
+        <property name="value">
+         <double>1.000000000000000</double>
         </property>
        </widget>
       </item>
      </layout>
     </item>
     <item>
-     <widget class="QCheckBox" name="cmdAuto">
+     <widget class="QPushButton" name="cmdRepaint">
       <property name="text">
-       <string>Auto repaint</string>
-      </property>
-     </widget>
-    </item>
-    <item>
-     <widget class="QPushButton" name="btn">
-      <property name="text">
-       <string>Repaint</string>
+       <string>Перерисовать</string>
       </property>
      </widget>
     </item>
@@ -87,7 +160,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>821</width>
+     <width>815</width>
      <height>21</height>
     </rect>
    </property>

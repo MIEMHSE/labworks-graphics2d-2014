@@ -82,9 +82,8 @@ namespace pashazz
         /**
     * @brief вращает точку вокруг начала координат
     *
-    * Вычисление определителя матрицы поворота точки вокруг угла angle
+    * Вычисление определителя матрицы поворота точки вокруг угла angle вокруг часовой стрелки
     *
-    * @param p - точка, которую необходимо вращать
     * @param angle - угол в радианах
     * @return новые координаты точки
     *
@@ -92,10 +91,31 @@ namespace pashazz
     * */
         Point2D rotate (double angle) const
         {
+#ifndef NDEBUG
+            std::cout << "Rotating " << *this << " around the start by angle " << angle << "radians. New coords: "
+                      << Point2D(cos(angle) * x - sin(angle) * y, sin(angle) * x + cos(angle) * y) << std::endl;
+#endif
             return
                     Point2D(
                         cos(angle) * x - sin(angle) * y,
                         sin(angle) * x + cos(angle) * y
+                        );
+        }
+
+        /**
+          @brief вращает координаты
+
+          вращает координаты на угол angle, возвращает координаты точки в новой системе
+
+          @param angle - угол в радианах
+          @return новые координаты точки
+         **/
+
+        Point2D rotateAxis (double angle) const
+        {
+            return Point2D (
+                        cos(angle) * x + sin(angle) * y,
+                        cos(angle) * y - sin(angle) * x
                         );
         }
 

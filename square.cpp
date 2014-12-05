@@ -13,8 +13,8 @@ Square::Square(const Point2D &m_centre, double edge)
 
 void inline Square::setEdge(double e)
 {
-    if (e <= 0)
-        throw NonPositiveValueException(e, "Pashazz::Square::m_halfedge");
+    if (e < 0)
+        throw NegativeValueException(e, "Pashazz::Square::m_halfedge");
     else
         m_halfedge = e/2;
 }
@@ -48,28 +48,34 @@ void Square::paint(QPainter *p) const
 
 Point2D inline Square::topLeftCorner() const
 {
-    return -m_centre.translate(tlCorner());
+    return (-m_centre).translate(tlCorner());
 }
 
 Point2D Square::topRightCorner() const
 {
-    return -m_centre.translate(trCorner());
+    return (-m_centre).translate(trCorner());
 }
 
 Point2D Square::bottomLeftCorner() const
 {
-    return -m_centre.translate(blCorner());
+    return (-m_centre).translate(blCorner());
 }
 
 Point2D Square::bottomRightCorner() const
 {
-    return -m_centre.translate(brCorner());
+    return (-m_centre).translate(brCorner());
 }
 
 
 bool Square::isInside(const Point2D &point) const
 { //Check whether the point is inside this square
     Point2D priv_point = m_centre.translate(point);
+#ifndef NDEBUG
+    std::cout << __BASE_FILE__ << ":" << __LINE__ << " " << __PRETTY_FUNCTION__ << " Coords: " << priv_point
+              << " Result: " <<   (fabs(priv_point.x) < m_halfedge && fabs(priv_point.y) < m_halfedge) << std::endl;
+
+#endif
+
     return fabs(priv_point.x) < m_halfedge && fabs(priv_point.y) < m_halfedge;
 }
 

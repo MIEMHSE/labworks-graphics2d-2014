@@ -12,12 +12,14 @@
 #include "vector.h"
 #include <vector>
 #include <memory>
+#include <QGraphicsItem>
+#include <QBrush>
 
 namespace pashazz
 {
 
     class GraphicsSystemObject;
-    typedef std::vector<std::unique_ptr<GraphicsSystemObject*> > GraphicsVector;
+    typedef std::vector<std::unique_ptr<GraphicsSystemObject>> GraphicsVector;
     typedef std::vector<GraphicsVector> SystemVector;
 
 
@@ -27,10 +29,11 @@ namespace pashazz
         GraphicsSystemObject() = delete;
         GraphicsSystemObject(const GraphicsSystemObject&) = delete; //запретить копирование
         GraphicsSystemObject& operator=(const GraphicsSystemObject&) = delete; //и присваивание тоже
-        GraphicsSystemObject(AbstractShape *shape, bool sign): m_pShape(shape), m_sign(sign) {}
+        GraphicsSystemObject(AbstractShape *shape, bool sign)
+            : m_pShape(shape), m_sign(sign) {}
         bool sign () const {return m_sign;}
         bool isInside (const Point2D &p) const;
-        void paint(const QPainter &painter) {}
+        void paint(QPainter *p) const {m_pShape->paint(p);}
         ~GraphicsSystemObject() {}
 
     private:
@@ -38,31 +41,50 @@ namespace pashazz
         bool m_sign;
     };
 
-    class GraphicsSystem
+    class GraphicsSystem : public QGraphicsItem
     {
     public:
-        GraphicsSystem(const Point2D &centre = {0, 0}, double angle = 0.0)
-                :m_centre(centre), m_angle(angle) {}
-        void setPainter(QPainter &painter) {m_painter = &painter;}
+        GraphicsSystem(const Point2D &centre = {0, 0}, double angle = 0.0, double height = 0 , double width = 0,
+                       QBrush trueBrush = Qt::SolidPattern, QBrush falseBrush = Qt::white);
+        ~GraphicsSystem();
+
+
         void addObject(AbstractShape *shape, bool sign = true, int zOrder = 0);
         void move(double dx, double dy, double dAngle) {move(Point2D(dx, dy), dAngle);}
         void move(const Point2D &delta, double dAngle);
         void rotate(double dAngle);
 
         //props
-        void setAngle(double angle) {m_angle = angle;}
+        void setAngle(double angle) {prepareGeometryChange(); m_angle = angle;}
         double angle() const {return m_angle;}
-
-        void setCentre(Point2D centre) {m_centre = centre;}
+        void setCentre(Point2D centre) {prepareGeometryChange(); m_centre = centre;}
         Point2D centre() const {return m_centre;}
         //end props
-        void paintEvent() const {}
+
+        //Qt drawing methods
+        void setSize(double height, double width)
+        {
+            prepareGeometryChange();
+            m_height = height;
+            m_width = width;
+        }
+
+        virtual void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);
+        virtual QRectF boundingRect() const
+        {
+            return QRectF(-m_height/2, -m_width/2, m_height, m_width);
+        }
+
+
         bool isInside(const Point2D &point) const;
     private:
         SystemVector m_system;
         double m_angle;
         Point2D m_centre;
-        QPainter *m_painter;
+        double m_height;
+        double m_width;
+
+        QBrush m_trueBrush, m_falseBrush; //brushes which drawing true and false elems
         };
 
 }

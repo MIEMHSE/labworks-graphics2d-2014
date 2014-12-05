@@ -45,8 +45,6 @@ TEST_F(VectorTest, TestTranslation)
     EXPECT_DOUBLE_EQ(itok.x, k.translate(i).x);
     EXPECT_DOUBLE_EQ(itok.y, k.translate(i).y);
 
-
-
 }
 
 TEST_F(VectorTest, TestMultiplication)

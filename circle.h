@@ -24,6 +24,11 @@ namespace pashazz
         void setRadius(double radius);
         double radius() const {return m_radius;}
         void transformCoords(){}
+        void move(const Point2D &delta)
+        {
+            setCentre(m_centre + delta);
+        }
+
 
     private:
         double m_radius;

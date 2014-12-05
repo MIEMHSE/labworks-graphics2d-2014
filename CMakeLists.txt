@@ -18,7 +18,7 @@ set(CMAKE_INCLUDE_CURRENT_DIR ON)
 #non-gui
 set(SOURCE_FILES square.cpp circle.cpp graphicssystem.cpp)
 set(HEADER_FILES square.h circle.h abstractshape.h vector.h graphicssystem.h)
-set(GUI_FILES mainwindow.cpp mainwindow.h)
+set(GUI_FILES mainwindow.cpp mainwindow.h scene.h)
 
 
 # Widgets finds its own dependencies.

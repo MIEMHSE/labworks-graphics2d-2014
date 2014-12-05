@@ -22,11 +22,11 @@ namespace pashazz
     class AbstractShape;
     //Ошибка: неположительное число
 
-    struct NonPositiveValueException
+    struct NegativeValueException
     {
-        NonPositiveValueException() = delete;
+        NegativeValueException() = delete;
 
-        NonPositiveValueException(double val, const char * msg)
+        NegativeValueException(double val, const char * msg)
         {
             std::cerr << "runtime error: mon-positive value: " << val << " (" << msg << ")\n";
         }
@@ -44,7 +44,7 @@ namespace pashazz
         }
 
         virtual void move(const Point2D &delta) = 0;
-        virtual bool isInside(const Point2D &point) = 0;
+        virtual bool isInside(const Point2D &point) const = 0;
 
         virtual void setCentre(Point2D centre)
         {
