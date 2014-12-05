@@ -125,6 +125,7 @@ namespace pashazz
     */
         Point2D translate (Point2D p) const
         {
+            std::cout << p.x - x << std::endl;
             return Point2D(p.x - x, p.y - y);
         }
 
