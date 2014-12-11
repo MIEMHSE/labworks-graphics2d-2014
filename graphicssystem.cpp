@@ -20,7 +20,7 @@ void inline GraphicsSystem::move(const Point2D &delta, double dAngle)
      m_angle += dAngle;
 }
 
-void inline GraphicsSystem::rotate(double dAngle)
+void  GraphicsSystem::rotate(double dAngle)
 {
      m_angle += dAngle;
 }
@@ -67,7 +67,7 @@ void GraphicsSystem::paint(QPainter *painter, const QStyleOptionGraphicsItem *op
      trSys.translate(m_centre.x, m_centre.y);
      trSys.rotateRadians(m_angle);
      painter->setTransform(trSys, true);
-     painter->setRenderHint(QPainter::Antialiasing);
+//     painter->setRenderHint(QPainter::Antialiasing);
      for(const auto &layer : boost::adaptors::reverse(m_system))
           for (const auto &pair : layer)
           {

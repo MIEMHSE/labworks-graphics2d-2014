@@ -27,8 +27,14 @@ private:
     Ui::MainWindow *ui;
     pashazz::CMy2DObjectA2 *obj;
     QLabel *lCoords;
+    bool rotate_enabled = false;
+    QTimer rotator;
+
 
 private slots:
+    void setX(double);
+    void setY(double);
+
     void updateFirstRadius(double);
     void updateSecondRadius(double);
     void updateThirdRadius(double);
@@ -36,10 +42,10 @@ private slots:
     void updateAngle(double);
     void updateLabel(double x, double y);
     void showIfInside(double x, double y);
-    void rotate(double);
 
-    void setX(double);
-    void setY(double);
+    void rotate(double);
+    void switchRotation();
+    void rotateBySmallRad();
 };
 
 #endif // MAINWINDOW_H

@@ -49,11 +49,13 @@ namespace  pashazz
         void SetRadius3(double);
         double GetRadius3() const;
 
-        void SetAngle(double angle) {m_angle  =  angle; /**< угол в радианах */}
-        double GetAngle() const {return m_angle;}
+        void SetAngle(double angle);
+        double GetAngle() const;
 
-        pashazz::GraphicsScene* GetScene() {return scene;}
+        pashazz::GraphicsScene* GetScene() const {return scene;}
         bool IsInside(const Point2D &point) const {sys->isInside(point);}
+
+        void Rotate(double dAngle);
 
     private:
         Point2D m_centre;
@@ -62,7 +64,6 @@ namespace  pashazz
         pashazz::Square *square, *minisquare;
         pashazz::Circle *circle1, *circle2, *circle3;
         pashazz::GraphicsScene *scene;
-        double m_edge, m_radius1, m_radius2, m_radius3, m_angle;
         QBrush m_background, m_foreground;
 
         /**

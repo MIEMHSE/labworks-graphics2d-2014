@@ -27,6 +27,7 @@ MainWindow::MainWindow(QWidget *parent) :
     void (QDoubleSpinBox:: *valueChangedSignal)(double) = &QDoubleSpinBox::valueChanged;
     connect(ui->boxRad1, valueChangedSignal, this, &MainWindow::updateFirstRadius);
     connect(ui->boxRad2, valueChangedSignal, this, &MainWindow::updateSecondRadius);
+    connect(ui->boxRad3, valueChangedSignal, this, &MainWindow::updateThirdRadius);
     connect(ui->boxAngle, valueChangedSignal, this, &MainWindow::updateAngle);
     connect(ui->boxX, valueChangedSignal, this, &MainWindow::setX);
     connect(ui->boxY, valueChangedSignal, this, &MainWindow::setY);
@@ -43,7 +44,14 @@ MainWindow::MainWindow(QWidget *parent) :
     /* отрисовать */
     ui->gr->setScene(obj->GetScene());
 
+    /* Соединить сцену и форму */
+    connect(obj->GetScene(), &GraphicsScene::mouseMoveSignal, this, &MainWindow::updateLabel);
+    connect(obj->GetScene(), &GraphicsScene::mouseClickSignal, this, &MainWindow::showIfInside);
 
+    /* оживить кнопку вращения */
+    rotator.setInterval(100);
+    connect(&rotator, &QTimer::timeout, this, &MainWindow::rotateBySmallRad);
+    connect(ui->cmdRotate, &QPushButton::clicked, this, &MainWindow::switchRotation);
 }
 
 MainWindow::~MainWindow()
@@ -106,8 +114,9 @@ void MainWindow::showIfInside(double x, double y)
 
 void MainWindow::rotate(double angle)
 {
-  //  sys->setAngle(angle);
-  //  scene->update();
+    obj->Rotate(angle);
+    ui->boxAngle->setValue(obj->GetAngle());
+    obj->GetScene()->update();
 
 }
 
@@ -119,4 +128,26 @@ void MainWindow::setX(double x)
 void MainWindow::setY(double y)
 {
     obj->SetCentre(Point2D(obj->GetCentre().x, y));
+}
+
+void MainWindow::switchRotation()
+{
+    if (rotate_enabled)
+    {
+     rotator.stop();
+     ui->cmdRotate->setText("Вращать");
+     rotate_enabled = false;
+    }
+    else
+    {
+        rotator.start();
+        ui->cmdRotate->setText("Остановить");
+        rotate_enabled =  true;
+    }
+
+}
+
+void MainWindow::rotateBySmallRad()
+{
+    rotate(0.01);
 }

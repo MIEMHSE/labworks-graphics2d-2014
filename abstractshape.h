@@ -50,6 +50,9 @@ namespace pashazz
         virtual void setCentre(Point2D centre)
         {
         m_centre = centre;
+#ifndef NDEBUG
+        std::cout << "Circle's centre is set to " << centre << std::endl;
+#endif
         transformCoords();
         }
 

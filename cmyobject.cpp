@@ -3,7 +3,6 @@
 using namespace pashazz;
 
 CMy2DObjectA2::CMy2DObjectA2(Point2D centre, double edge, double radius1, double radius2, double radius3, double angle,  QBrush background, QBrush foreground)
-:m_centre(centre), m_angle(angle)
 {
 
     /* создать систему объектов; вариант 2A */
@@ -33,9 +32,8 @@ CMy2DObjectA2::CMy2DObjectA2(Point2D centre, double edge, double radius1, double
     sys->addObject(minisquare, false, 1);
 
     /* Круг в левом нижнем углу, образующий закругление */
-    circle3 = new Circle(minisquare->topLeftCorner(), radius3);
-    sys->addObject(circle3, true, 0);
-
+   circle3 = new Circle(minisquare->topRightCorner(), radius3);
+   sys->addObject(circle3, true, 0);
     throwIntersection(); //проверим на пересечения
     /* создать сцену */
     scene = new GraphicsScene();
@@ -47,7 +45,6 @@ CMy2DObjectA2::CMy2DObjectA2(Point2D centre, double edge, double radius1, double
 CMy2DObjectA2::~CMy2DObjectA2()
 {
     delete sys;
-    delete circle1, circle2, circle3, minisquare, square;
     delete scene;
 }
 
@@ -91,6 +88,14 @@ bool CMy2DObjectA2::checkIntersection(std::string &message) const
 
 }
 
+void CMy2DObjectA2::SetRadius3(double d)
+{
+    minisquare->setCentre(square->bottomLeftCorner() + Point2D(d / 2, d / 2));
+    circle3->setCentre(minisquare->topRightCorner());
+    circle3->setRadius(d);
+    throwIntersection();
+}
+
 
 void CMy2DObjectA2::SetEdge(double d)
 {
@@ -125,18 +130,14 @@ double inline CMy2DObjectA2::GetRadius2() const
     return circle2->radius();
 }
 
-void CMy2DObjectA2::SetRadius3(double d)
-{
-    circle3->setRadius(d);
-    throwIntersection();
-}
+
 
 double CMy2DObjectA2::GetRadius3() const
 {
-    return 0;
+    return circle3->radius();
 }
 
-void inline CMy2DObjectA2::throwIntersection() const
+void CMy2DObjectA2::throwIntersection() const
 {
     #ifndef NO_INTERSECTION
         return;
@@ -147,4 +148,19 @@ void inline CMy2DObjectA2::throwIntersection() const
         throw std::invalid_argument(message);
     }
     #endif //NO_INTERSECTION
+}
+
+void CMy2DObjectA2::SetAngle(double angle)
+{
+    sys->setAngle(angle);
+}
+
+double CMy2DObjectA2::GetAngle() const
+{
+    return sys->angle();
+}
+
+void CMy2DObjectA2::Rotate(double dAngle)
+{
+    sys->rotate(dAngle);
 }
