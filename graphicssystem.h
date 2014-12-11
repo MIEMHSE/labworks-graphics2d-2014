@@ -4,6 +4,7 @@
 * @date 3 Dec 2014
 *
 * Система из геометрических объектов
+* Система сама удаляет добавленные объекты в деструкторе
 */
 #ifndef GRAPHICSSYSTEM_H
 #define GRAPHICSSYSTEM_H
@@ -18,28 +19,10 @@
 namespace pashazz
 {
 
-    class GraphicsSystemObject;
-    typedef std::vector<std::unique_ptr<GraphicsSystemObject>> GraphicsVector;
+    typedef std::vector<std::pair<AbstractShape*, bool>> GraphicsVector;
     typedef std::vector<GraphicsVector> SystemVector;
 
 
-    class GraphicsSystemObject
-    {
-    public:
-        GraphicsSystemObject() = delete;
-        GraphicsSystemObject(const GraphicsSystemObject&) = delete; //запретить копирование
-        GraphicsSystemObject& operator=(const GraphicsSystemObject&) = delete; //и присваивание тоже
-        GraphicsSystemObject(AbstractShape *shape, bool sign)
-            : m_pShape(shape), m_sign(sign) {}
-        bool sign () const {return m_sign;}
-        bool isInside (const Point2D &p) const;
-        void paint(QPainter *p) const {m_pShape->paint(p);}
-        ~GraphicsSystemObject() {}
-
-    private:
-        AbstractShape *m_pShape;
-        bool m_sign;
-    };
 
     class GraphicsSystem : public QGraphicsItem
     {

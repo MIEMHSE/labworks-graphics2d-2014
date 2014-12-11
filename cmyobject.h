@@ -1,12 +1,29 @@
+/**
+* @file cmyobject.h
+* @date 11 Dec 2014
+* @author Pavel Zinin
+*/
+#ifndef CMYOBJECT_H
+#define CMYOBJECT_H
+
 #include "graphicssystem.h"
 #include <QGraphicsScene>
 #include <QBrush>
 #include "square.h"
 #include "circle.h"
 #include "scene.h"
+#include "string"
 
 namespace  pashazz
 {
+    /**
+     * @class CMyObjectA2
+     * Описывает объект типа коллекции фигур
+     * если определить NO_INTERSECTION, вызывает std::invalid_argument при самопересечении границ
+     *
+     */
+    //#define NO_INTERSECTION
+
 
     class CMy2DObjectA2
     {
@@ -21,7 +38,7 @@ namespace  pashazz
         Point2D GetCentre() const {return m_centre;}
 
         void SetEdge(double);
-        double edge() const {return m_edge;}
+        double GetEdge() const;
 
         void SetRadius1(double);
         double GetRadius1() const;
@@ -35,7 +52,7 @@ namespace  pashazz
         void SetAngle(double angle) {m_angle  =  angle; /**< угол в радианах */}
         double GetAngle() const {return m_angle;}
 
-        QGraphicsScene *scene;
+        pashazz::GraphicsScene* GetScene() {return scene;}
 
     private:
         Point2D m_centre;
@@ -49,10 +66,13 @@ namespace  pashazz
 
         /**
         * @brief проверяет границы фигуры
-        *
+        * @param message - записывает сообщение в message для передачи уровнем выше
         */
-        bool checkIntersection();
+        bool checkIntersection(std::string &) const;
+        void throwIntersection();
     };
 
 
 }
+
+#endif //CMYOBJECT_H

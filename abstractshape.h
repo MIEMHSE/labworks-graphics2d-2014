@@ -10,6 +10,7 @@
 #include <iostream>
 #include "vector.h"
 #include <QPainter>
+#include <QtWidgets>
 
 namespace pashazz
 {

@@ -8,6 +8,7 @@
 #include "circle.h"
 #include "graphicssystem.h"
 #include "scene.h"
+#include "cmyobject.h"
 
 namespace Ui {
     class MainWindow;
@@ -34,8 +35,8 @@ private:
 private slots:
     void updateFirstRadius(double);
     void updateSecondRadius(double);
-    void updateThirdRadius(double) {}
-    void updateEdge(double) {}
+    void updateThirdRadius(double);
+    void updateEdge(double);
     void updateLabel(double x, double y);
     void showIfInside(double x, double y);
     void rotate(double);

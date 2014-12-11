@@ -4,6 +4,7 @@
 #include "graphicssystem.h"
 #include "circle.h"
 #include "square.h"
+#include "cmyobject.h"
 
 #include <QStatusBar>
 
@@ -35,8 +36,9 @@ MainWindow::MainWindow(QWidget *parent) :
     lCoords = new QLabel(this);
     statusBar()->addPermanentWidget(lCoords);
 
+    /* создать объект CMyObject */
 
-    ui->gr->setScene(scene);
+
 
 }
 
@@ -92,4 +94,9 @@ void MainWindow::rotate(double angle)
 void MainWindow::setX(double x)
 {
     sys->setCentre({x, sys->centre().y});
+}
+
+void MainWindow::setY(double y)
+{
+    sys->setCentre({sys->centre().x, y});
 }
