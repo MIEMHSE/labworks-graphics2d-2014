@@ -24,12 +24,12 @@ set(GUI_FILES mainwindow.cpp mainwindow.h scene.h)
 # Widgets finds its own dependencies.
 FIND_PACKAGE(Qt5Widgets REQUIRED)
 
-add_executable(graphics2d ${GUI_FILES} ${SOURCE_FILES} ${HEADER_FILES} main.cpp)
+add_executable(graphics2d  ${SOURCE_FILES} ${HEADER_FILES} ${GUI_FILES} main.cpp)
 
 target_link_libraries(graphics2d Qt5::Widgets)
 
-add_subdirectory(gtest)
-include_directories(${gtest_SOURCE_DIR}/include ${gtest_SOURCE_DIR})
-add_executable(runUnitTests ${SOURCE_FILES} ${HEADER_FILES} test_vector.cpp)
+#add_subdirectory(gtest)
+#include_directories(${gtest_SOURCE_DIR}/include ${gtest_SOURCE_DIR})
+#add_executable(runUnitTests ${SOURCE_FILES} ${HEADER_FILES} test_vector.cpp)
 # Standard linking to gtest stuff.
-target_link_libraries(runUnitTests gtest gtest_main Qt5::Widgets)
+#target_link_libraries(runUnitTests gtest gtest_main Qt5::Widgets)

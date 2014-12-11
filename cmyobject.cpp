@@ -9,7 +9,7 @@ CMy2DObjectA2::CMy2DObjectA2(Point2D centre, double edge, double radius1, double
     /* создать систему объектов; вариант 2A */
     sys = new GraphicsSystem(centre, angle,
             edge + 20, edge + 20,
-            background, foreground);
+            foreground, background);
 
     /* Квадрат в центре системы */
     square = new Square(Point2D(0, 0), edge);
@@ -34,10 +34,11 @@ CMy2DObjectA2::CMy2DObjectA2(Point2D centre, double edge, double radius1, double
 
     /* Круг в левом нижнем углу, образующий закругление */
     circle3 = new Circle(minisquare->topLeftCorner(), radius3);
-    sys->addObject(circle3, false, 0);
+    sys->addObject(circle3, true, 0);
 
     throwIntersection(); //проверим на пересечения
     /* создать сцену */
+    scene = new GraphicsScene();
     scene->addItem(sys);
 
 
@@ -91,7 +92,7 @@ bool CMy2DObjectA2::checkIntersection(std::string &message) const
 }
 
 
-void inline CMy2DObjectA2::SetEdge(double d)
+void CMy2DObjectA2::SetEdge(double d)
 {
     square->setEdge(d);
     throwIntersection();
@@ -102,7 +103,7 @@ double inline CMy2DObjectA2::GetEdge() const
     return square->edge();
 }
 
-void inline CMy2DObjectA2::SetRadius1(double d)
+void  CMy2DObjectA2::SetRadius1(double d)
 {
     circle1->setRadius(d);
     throwIntersection();
@@ -135,7 +136,7 @@ double CMy2DObjectA2::GetRadius3() const
     return 0;
 }
 
-void inline CMy2DObjectA2::throwIntersection()
+void inline CMy2DObjectA2::throwIntersection() const
 {
     #ifndef NO_INTERSECTION
         return;

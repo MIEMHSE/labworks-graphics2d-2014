@@ -25,11 +25,7 @@ public:
 protected:
 private:
     Ui::MainWindow *ui;
-    pashazz::GraphicsSystem *sys;
-    /* фигуры */
-    pashazz::Square *square, *minisquare;
-    pashazz::Circle *circle1, *circle2, *circle3;
-    pashazz::GraphicsScene *scene;
+    pashazz::CMy2DObjectA2 *obj;
     QLabel *lCoords;
 
 private slots:
@@ -37,6 +33,7 @@ private slots:
     void updateSecondRadius(double);
     void updateThirdRadius(double);
     void updateEdge(double);
+    void updateAngle(double);
     void updateLabel(double x, double y);
     void showIfInside(double x, double y);
     void rotate(double);

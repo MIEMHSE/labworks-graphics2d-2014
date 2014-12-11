@@ -53,6 +53,7 @@ namespace  pashazz
         double GetAngle() const {return m_angle;}
 
         pashazz::GraphicsScene* GetScene() {return scene;}
+        bool IsInside(const Point2D &point) const {sys->isInside(point);}
 
     private:
         Point2D m_centre;
@@ -69,7 +70,7 @@ namespace  pashazz
         * @param message - записывает сообщение в message для передачи уровнем выше
         */
         bool checkIntersection(std::string &) const;
-        void throwIntersection();
+        void throwIntersection() const;
     };
 
 

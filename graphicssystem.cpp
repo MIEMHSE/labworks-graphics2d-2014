@@ -1,5 +1,6 @@
 #include "graphicssystem.h"
 #include <QWidget>
+#include <boost/range/adaptor/reversed.hpp>
 
 using namespace pashazz;
 
@@ -67,9 +68,13 @@ void GraphicsSystem::paint(QPainter *painter, const QStyleOptionGraphicsItem *op
      trSys.rotateRadians(m_angle);
      painter->setTransform(trSys, true);
      painter->setRenderHint(QPainter::Antialiasing);
-     for(const auto &layer : m_system)
+     for(const auto &layer : boost::adaptors::reverse(m_system))
           for (const auto &pair : layer)
           {
+#ifndef NDEBUG
+              std::cout << "Adding Object " << pair.first->centre() << "; "<< pair.second << std::endl;
+#endif
+
               pair.second ? painter->setBrush(m_trueBrush) : painter->setBrush(m_falseBrush);
               painter->setPen(Qt::NoPen);
               pair.first->paint(painter);

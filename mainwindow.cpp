@@ -27,7 +27,7 @@ MainWindow::MainWindow(QWidget *parent) :
     void (QDoubleSpinBox:: *valueChangedSignal)(double) = &QDoubleSpinBox::valueChanged;
     connect(ui->boxRad1, valueChangedSignal, this, &MainWindow::updateFirstRadius);
     connect(ui->boxRad2, valueChangedSignal, this, &MainWindow::updateSecondRadius);
-    connect(ui->boxAngle, valueChangedSignal, this, &MainWindow::rotate);
+    connect(ui->boxAngle, valueChangedSignal, this, &MainWindow::updateAngle);
     connect(ui->boxX, valueChangedSignal, this, &MainWindow::setX);
     connect(ui->boxY, valueChangedSignal, this, &MainWindow::setY);
 
@@ -37,7 +37,11 @@ MainWindow::MainWindow(QWidget *parent) :
     statusBar()->addPermanentWidget(lCoords);
 
     /* создать объект CMyObject */
+    obj = new CMy2DObjectA2(Point2D(ui->boxX->value(), ui->boxY->value()), ui->boxSquare->value(),
+                            ui->boxRad1->value(), ui->boxRad2->value(), ui->boxRad3->value(), ui->boxAngle->value(), ui->gr->backgroundBrush(), Qt::magenta);
 
+    /* отрисовать */
+    ui->gr->setScene(obj->GetScene());
 
 
 }
@@ -45,10 +49,8 @@ MainWindow::MainWindow(QWidget *parent) :
 MainWindow::~MainWindow()
 {
     delete ui;
-    delete sys;
-    delete circle1, circle2, circle3;
-    delete scene;
     delete lCoords;
+    delete obj;
 }
 
 void MainWindow::updateFirstRadius(double r)
@@ -56,14 +58,26 @@ void MainWindow::updateFirstRadius(double r)
 #ifndef NDEBUG
     std::cout << "Radius of the first circle has been updated to " << r << std::endl;
 #endif
-    circle1->setRadius(r);
-    scene->update();
+    obj->SetRadius1(r);
+    obj->GetScene()->update();
 }
 
 void MainWindow::updateSecondRadius(double r)
 {
-    circle2->setRadius(r);
-    scene->update();
+    obj->SetRadius2(r);
+    obj->GetScene()->update();
+}
+
+void MainWindow::updateThirdRadius(double r)
+{
+    obj->SetRadius3(r);
+    obj->GetScene()->update();
+}
+
+void MainWindow::updateAngle(double a)
+{
+    obj->SetAngle(a);
+    obj->GetScene()->update();
 }
 
 void MainWindow::updateLabel(double x, double y)
@@ -72,9 +86,15 @@ void MainWindow::updateLabel(double x, double y)
     lCoords->setText(tr("abs: (%1, %2) rel: (%3, %4)").arg(x).arg(y).arg(rel.x).arg(rel.y));
 }
 
+void MainWindow::updateEdge(double e)
+{
+    obj->SetEdge(e);
+    obj->GetScene()->update();
+}
+
 void MainWindow::showIfInside(double x, double y)
 {
-    if (sys->isInside({x,y}))
+    if (obj->IsInside({x,y}))
     {
         statusBar()->showMessage(tr("Point (%1, %2) внутри объекта").arg(x).arg(y));
     }
@@ -86,17 +106,17 @@ void MainWindow::showIfInside(double x, double y)
 
 void MainWindow::rotate(double angle)
 {
-    sys->setAngle(angle);
-    scene->update();
+  //  sys->setAngle(angle);
+  //  scene->update();
 
 }
 
 void MainWindow::setX(double x)
 {
-    sys->setCentre({x, sys->centre().y});
+    obj->SetCentre(Point2D(x, obj->GetCentre().y));
 }
 
 void MainWindow::setY(double y)
 {
-    sys->setCentre({sys->centre().x, y});
+    obj->SetCentre(Point2D(obj->GetCentre().x, y));
 }
