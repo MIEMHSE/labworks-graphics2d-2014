@@ -31,6 +31,7 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(ui->boxAngle, valueChangedSignal, this, &MainWindow::updateAngle);
     connect(ui->boxX, valueChangedSignal, this, &MainWindow::setX);
     connect(ui->boxY, valueChangedSignal, this, &MainWindow::setY);
+    connect(ui->boxSquare, valueChangedSignal, this, &MainWindow::updateEdge);
 
 
     /* status bar */

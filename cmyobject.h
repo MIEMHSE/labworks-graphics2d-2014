@@ -58,13 +58,11 @@ namespace  pashazz
         void Rotate(double dAngle);
 
     private:
-        Point2D m_centre;
-        pashazz::GraphicsSystem *sys;
-        /* фигуры */
-        pashazz::Square *square, *minisquare;
-        pashazz::Circle *circle1, *circle2, *circle3;
-        pashazz::GraphicsScene *scene;
-        QBrush m_background, m_foreground;
+        /**
+         * @brief updateScene
+         * Обновляет позиции фигур относительно главного квадрата. Вызывать после изменения стороны главного квадрата
+         */
+        void updateScene();
 
         /**
         * @brief проверяет границы фигуры
@@ -72,6 +70,15 @@ namespace  pashazz
         */
         bool checkIntersection(std::string &) const;
         void throwIntersection() const;
+
+        //fields
+        Point2D m_centre;
+        pashazz::GraphicsSystem *sys;
+        /* фигуры */
+        pashazz::Square *square, *minisquare;
+        pashazz::Circle *circle1, *circle2, *circle3;
+        pashazz::GraphicsScene *scene;
+        QBrush m_background, m_foreground;
     };
 
 

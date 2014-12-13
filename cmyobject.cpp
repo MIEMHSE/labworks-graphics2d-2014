@@ -42,12 +42,34 @@ CMy2DObjectA2::CMy2DObjectA2(Point2D centre, double edge, double radius1, double
 
 }
 
+
+void CMy2DObjectA2::updateScene()
+{
+    Point2D circle1_centre = square->topRightCorner() + Point2D(0, -square->edge() / 2);
+    circle1->setCentre(circle1_centre);
+
+    Point2D circle2_centre =square->topLeftCorner();
+    circle2->setCentre(circle2_centre);
+
+    Point2D minisquare_centre = square->bottomLeftCorner() + Point2D(circle3->radius() / 2, circle3->radius() / 2);
+    minisquare->setCentre(minisquare_centre);
+
+    circle3->setCentre(minisquare->topRightCorner());
+}
+
 CMy2DObjectA2::~CMy2DObjectA2()
 {
     delete sys;
     delete scene;
 }
 
+void CMy2DObjectA2::SetEdge(double d)
+{
+    square->setEdge(d);
+    /* обновить все объекты, которые расположены относительно квадрата */
+    updateScene();
+    throwIntersection();
+}
 bool CMy2DObjectA2::checkIntersection(std::string &message) const
 { //TEST VERSION
     // 1) Базовые проверки: проверяем, находятся ли внутри самого квадрата наши полукруги
@@ -91,17 +113,14 @@ bool CMy2DObjectA2::checkIntersection(std::string &message) const
 void CMy2DObjectA2::SetRadius3(double d)
 {
     minisquare->setCentre(square->bottomLeftCorner() + Point2D(d / 2, d / 2));
+    minisquare->setEdge(d);
     circle3->setCentre(minisquare->topRightCorner());
     circle3->setRadius(d);
     throwIntersection();
 }
 
 
-void CMy2DObjectA2::SetEdge(double d)
-{
-    square->setEdge(d);
-    throwIntersection();
-}
+
 
 double inline CMy2DObjectA2::GetEdge() const
 {
