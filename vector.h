@@ -162,7 +162,7 @@ namespace pashazz
         friend Point2D operator-(const Point2D &lvalue, const Point2D &rvalue)
         {
             Point2D r = lvalue;
-            return r -= lvalue;
+            return r -= rvalue;
         }
 
         friend bool operator<(const Point2D &lvalue, const Point2D &rvalue)

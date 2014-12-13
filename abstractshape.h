@@ -38,7 +38,7 @@ namespace pashazz
     class AbstractShape
     {
     public:
-
+        virtual ~AbstractShape() {}
         virtual void move(double dX, double dY)
         {
             move(Point2D(dX, dY));
