@@ -186,9 +186,9 @@ namespace pashazz
             return !(lvalue < rvalue);
         }
 
-        /*
-    @brief возвращает угол (в радианах), относительно оси x
-     */
+        /**
+           @brief возвращает угол (в радианах), относительно оси x
+        */
         double angle()
         {
             return atan2(y, x);

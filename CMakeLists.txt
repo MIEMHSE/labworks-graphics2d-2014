@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.0.0 FATAL_ERROR)
 project(graphics2d)
 #c++11
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -Wall")
 
 #default Homebrew path
 IF(${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
@@ -16,15 +16,16 @@ set(CMAKE_AUTOUIC ON)
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 
 #non-gui
-set(SOURCE_FILES square.cpp circle.cpp graphicssystem.cpp cmyobject.cpp)
-set(HEADER_FILES square.h circle.h abstractshape.h vector.h graphicssystem.h cmyobject.h)
+set(SOURCE_FILES square.cpp circle.cpp graphicssystem.cpp cmyobject.cpp pie.cpp)
+set(HEADER_FILES square.h circle.h abstractshape.h vector.h graphicssystem.h cmyobject.h pie.h)
 set(GUI_FILES mainwindow.cpp mainwindow.h scene.h)
+set(INLINE_FILES square.inl cmyobject.inl)
 
 
 # Widgets finds its own dependencies.
 FIND_PACKAGE(Qt5Widgets REQUIRED)
 
-add_executable(graphics2d  ${SOURCE_FILES} ${HEADER_FILES} ${GUI_FILES} main.cpp)
+add_executable(graphics2d ${INLINE_FILES}  ${SOURCE_FILES} ${HEADER_FILES} ${GUI_FILES} main.cpp)
 
 target_link_libraries(graphics2d Qt5::Widgets)
 

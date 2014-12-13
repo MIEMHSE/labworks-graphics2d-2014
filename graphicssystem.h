@@ -32,7 +32,7 @@ namespace pashazz
         ~GraphicsSystem();
 
 
-        void addObject(AbstractShape *shape, bool sign = true, int zOrder = 0);
+        void addObject(AbstractShape *shape, bool sign = true, unsigned int zOrder = 0);
         void move(double dx, double dy, double dAngle) {move(Point2D(dx, dy), dAngle);}
         void move(const Point2D &delta, double dAngle);
         void rotate(double dAngle);
@@ -62,8 +62,8 @@ namespace pashazz
         bool isInside(const Point2D &point) const;
     private:
         SystemVector m_system;
-        double m_angle;
         Point2D m_centre;
+        double m_angle;
         double m_height;
         double m_width;
 

@@ -16,7 +16,6 @@ Circle::Circle(double x, double y, double radius)
 }
 bool Circle::isInside(const Point2D &point) const
 {
-
     Point2D priv_point = m_centre.translate(point);
 #ifndef NDEBUG
     std::cout << __BASE_FILE__ << ":" << __LINE__ << " " << __PRETTY_FUNCTION__ << " Coords: " << priv_point
@@ -28,8 +27,7 @@ bool Circle::isInside(const Point2D &point) const
 
 void Circle::paint(QPainter *p) const
 {
-    QPointF qtpoint (m_centre.x, m_centre.y);
-    p->drawEllipse(qtpoint, m_radius, m_radius);
+    p->drawEllipse(m_centre, m_radius, m_radius);
 }
 
 void inline Circle::setRadius(double radius)

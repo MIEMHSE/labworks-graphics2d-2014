@@ -25,7 +25,7 @@ void  GraphicsSystem::rotate(double dAngle)
      m_angle += dAngle;
 }
 
-void GraphicsSystem::addObject(AbstractShape *shape, bool sign, int zOrder)
+void GraphicsSystem::addObject(AbstractShape *shape, bool sign, unsigned int zOrder)
 {
      //null checking
      if (!shape)

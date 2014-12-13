@@ -40,9 +40,9 @@ namespace pashazz
         Point2D blCorner() const;
         Point2D brCorner() const;
         double m_halfedge;
-        void transformCoords() {std::cout << __func__ << " has just been called!\n";}
 
     };
 }
 
+#include "square.inl"
 #endif // SQUARE_H

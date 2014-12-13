@@ -49,11 +49,7 @@ namespace pashazz
 
         virtual void setCentre(Point2D centre)
         {
-        m_centre = centre;
-#ifndef NDEBUG
-        std::cout << "Circle's centre is set to " << centre << std::endl;
-#endif
-        transformCoords();
+            m_centre = centre;
         }
 
 
@@ -66,7 +62,6 @@ namespace pashazz
         virtual void paint(QPainter *p) const = 0;
 
     protected:
-        virtual void transformCoords() = 0;
         Point2D m_centre;
         //constructor
         AbstractShape(Point2D centre)

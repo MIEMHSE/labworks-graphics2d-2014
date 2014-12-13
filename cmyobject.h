@@ -12,6 +12,7 @@
 #include "square.h"
 #include "circle.h"
 #include "scene.h"
+#include "pie.h"
 #include "string"
 
 namespace  pashazz
@@ -34,8 +35,8 @@ namespace  pashazz
         //Property begin
         //С.Аксенов настаивает на PascalCase нотации
 
-        void SetCentre(const Point2D &centre) {m_centre = centre;}
-        Point2D GetCentre() const {return m_centre;}
+        void SetCentre(const Point2D &centre) {sys->setCentre(centre);}
+        Point2D GetCentre() const {return sys->centre();}
 
         void SetEdge(double);
         double GetEdge() const;
@@ -53,9 +54,11 @@ namespace  pashazz
         double GetAngle() const;
 
         pashazz::GraphicsScene* GetScene() const {return scene;}
-        bool IsInside(const Point2D &point) const {sys->isInside(point);}
+        bool IsInside(const Point2D &point) const {return sys->isInside(point);}
 
         void Rotate(double dAngle);
+        bool CheckIntersection(std::string &) const;
+
 
     private:
         /**
@@ -64,19 +67,19 @@ namespace  pashazz
          */
         void updateScene();
 
+
         /**
         * @brief проверяет границы фигуры
         * @param message - записывает сообщение в message для передачи уровнем выше
         */
-        bool checkIntersection(std::string &) const;
         void throwIntersection() const;
 
         //fields
-        Point2D m_centre;
         pashazz::GraphicsSystem *sys;
         /* фигуры */
         pashazz::Square *square, *minisquare;
-        pashazz::Circle *circle1, *circle2, *circle3;
+        pashazz::Circle *circle1, *circle2;
+        pashazz::Pie *circle3;
         pashazz::GraphicsScene *scene;
         QBrush m_background, m_foreground;
     };
@@ -84,4 +87,5 @@ namespace  pashazz
 
 }
 
+#include "cmyobject.inl"
 #endif //CMYOBJECT_H

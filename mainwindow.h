@@ -43,6 +43,9 @@ private slots:
     void updateLabel(double x, double y);
     void showIfInside(double x, double y);
 
+    void showStatusMessage();
+    void updateUserBoxes();
+
     void rotate(double);
     void switchRotation();
     void rotateBySmallRad();

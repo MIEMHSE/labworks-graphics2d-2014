@@ -4,10 +4,8 @@
 #include "graphicssystem.h"
 #include "circle.h"
 #include "square.h"
+#include "pie.h"
 #include "cmyobject.h"
-
-#include <QStatusBar>
-
 
 using namespace pashazz;
 MainWindow::MainWindow(QWidget *parent) :
@@ -34,9 +32,11 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(ui->boxSquare, valueChangedSignal, this, &MainWindow::updateEdge);
 
 
+
     /* status bar */
     lCoords = new QLabel(this);
     statusBar()->addPermanentWidget(lCoords);
+
 
     /* создать объект CMyObject */
     obj = new CMy2DObjectA2(Point2D(ui->boxX->value(), ui->boxY->value()), ui->boxSquare->value(),
@@ -53,6 +53,8 @@ MainWindow::MainWindow(QWidget *parent) :
     rotator.setInterval(100);
     connect(&rotator, &QTimer::timeout, this, &MainWindow::rotateBySmallRad);
     connect(ui->cmdRotate, &QPushButton::clicked, this, &MainWindow::switchRotation);
+
+
 }
 
 MainWindow::~MainWindow()
@@ -62,6 +64,22 @@ MainWindow::~MainWindow()
     delete obj;
 }
 
+void MainWindow::showStatusMessage()
+{
+    std::string str;
+    if(obj->CheckIntersection(str))
+        statusBar()->showMessage(QString(str.c_str()));
+    else
+        statusBar()->clearMessage();
+}
+
+void MainWindow::updateUserBoxes()
+{
+    ui->boxRad1->setMaximum(obj->GetEdge());
+    ui->boxRad2->setMaximum(obj->GetEdge());
+    ui->boxRad3->setMaximum(obj->GetEdge());
+}
+
 void MainWindow::updateFirstRadius(double r)
 {
 #ifndef NDEBUG
@@ -69,18 +87,21 @@ void MainWindow::updateFirstRadius(double r)
 #endif
     obj->SetRadius1(r);
     obj->GetScene()->update();
+    showStatusMessage();
 }
 
 void MainWindow::updateSecondRadius(double r)
 {
     obj->SetRadius2(r);
     obj->GetScene()->update();
+    showStatusMessage();
 }
 
 void MainWindow::updateThirdRadius(double r)
 {
     obj->SetRadius3(r);
     obj->GetScene()->update();
+    showStatusMessage();
 }
 
 void MainWindow::updateAngle(double a)
@@ -99,6 +120,8 @@ void MainWindow::updateEdge(double e)
 {
     obj->SetEdge(e);
     obj->GetScene()->update();
+    showStatusMessage();
+    updateUserBoxes();
 }
 
 void MainWindow::showIfInside(double x, double y)
@@ -152,3 +175,5 @@ void MainWindow::rotateBySmallRad()
 {
     rotate(0.01);
 }
+
+

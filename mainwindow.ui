@@ -47,22 +47,6 @@
         </property>
        </widget>
       </item>
-      <item row="0" column="3">
-       <widget class="QDoubleSpinBox" name="boxAngle">
-        <property name="suffix">
-         <string> рад</string>
-        </property>
-        <property name="maximum">
-         <double>6.280000000000000</double>
-        </property>
-        <property name="singleStep">
-         <double>0.010000000000000</double>
-        </property>
-        <property name="value">
-         <double>1.000000000000000</double>
-        </property>
-       </widget>
-      </item>
       <item row="4" column="2">
        <widget class="QLabel" name="label_3">
         <property name="text">
@@ -147,12 +131,31 @@
          <double>1000.000000000000000</double>
         </property>
         <property name="value">
-         <double>50.990000000000002</double>
+         <double>50.000000000000000</double>
         </property>
        </widget>
       </item>
       <item row="5" column="1">
        <widget class="QDoubleSpinBox" name="boxRad3">
+        <property name="maximum">
+         <double>1000.990000000000009</double>
+        </property>
+        <property name="value">
+         <double>0.000000000000000</double>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="3">
+       <widget class="QDoubleSpinBox" name="boxAngle">
+        <property name="suffix">
+         <string> рад</string>
+        </property>
+        <property name="maximum">
+         <double>6.280000000000000</double>
+        </property>
+        <property name="singleStep">
+         <double>0.010000000000000</double>
+        </property>
         <property name="value">
          <double>0.000000000000000</double>
         </property>
@@ -175,7 +178,7 @@
      <x>0</x>
      <y>0</y>
      <width>1066</width>
-     <height>21</height>
+     <height>19</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">
