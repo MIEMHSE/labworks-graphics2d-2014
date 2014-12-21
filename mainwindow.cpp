@@ -147,11 +147,13 @@ void MainWindow::rotate(double angle)
 void MainWindow::setX(double x)
 {
     obj->SetCentre(Point2D(x, obj->GetCentre().y));
+    obj->GetScene()->update();
 }
 
 void MainWindow::setY(double y)
 {
     obj->SetCentre(Point2D(obj->GetCentre().x, y));
+    obj->GetScene()->update();
 }
 
 void MainWindow::switchRotation()
